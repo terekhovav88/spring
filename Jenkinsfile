@@ -10,12 +10,10 @@ node('gradle') {
         withMaven() {
            git "https://github.com/terekhovav88/spring.git"
            sh "mvn clean deploy -Dmaven.test.skip=true" // 'mvnw' command (e.g. "./mvnw deploy")
+           nexusPublisher nexusInstanceId: 'NX',
+           nexusRepositoryId: 'maven-snapshots',
+           packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'spring', groupId: 'org.terekhov', packaging: 'jar', version: '1.1-SNAPSHOT']]],
+           tagName: 'latest'
         }
-    }
-    stage('nexus upload'){
-        nexusPublisher nexusInstanceId: 'NX',
-        nexusRepositoryId: 'maven-snapshots',
-        packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'spring', groupId: 'org.terekhov', packaging: 'jar', version: '1.1-SNAPSHOT']]],
-        tagName: 'latest'
     }
 }
