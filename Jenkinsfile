@@ -15,7 +15,7 @@ node('gradle') {
     stage('nexus upload'){
         nexusPublisher nexusInstanceId: 'NX',
         nexusRepositoryId: 'maven-snapshots',
-        packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/***.jar']],
+        packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/spring-1.1-SNAPSHOT.jar']],
         mavenCoordinate: [artifactId: 'spring', groupId: 'org.terekhov', packaging: 'jar', version: '1.1-SNAPSHOT']]]
     }
 }
