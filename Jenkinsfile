@@ -8,7 +8,7 @@ node('gradle') {
     }
     stage('maven build') {
         withMaven() {
-           git "https://github.com/terekhovav88/SimpleSpring.git"
+           git "https://github.com/terekhovav88/spring.git"
            sh "mvn clean deploy -Dmaven.test.skip=true" // 'mvnw' command (e.g. "./mvnw deploy")
         }
     }
