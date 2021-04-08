@@ -13,9 +13,13 @@ node('gradle') {
         }
     }
     stage('nexus upload'){
-        nexusPublisher nexusInstanceId: 'NX',
-        nexusRepositoryId: 'maven-snapshots',
-        packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/spring-1.1-SNAPSHOT.jar']],
-        mavenCoordinate: [artifactId: 'spring', groupId: 'org.terekhov', packaging: 'jar', version: '1.1-SNAPSHOT']]]
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: 'target/*.jar', type: 'jar']],
+        credentialsId: 'Nexus',
+        groupId: 'org.terekhov',
+        nexusUrl: '192.168.1.140:8081/',
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        repository: 'maven-snapshots',
+        version: '1.1-SNAPSHOT'
     }
 }
