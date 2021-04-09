@@ -1,6 +1,8 @@
 @Library('jenkins-sample-lib')_
 
 def tag = '2.1'
+def nexusUrl = 'http://192.168.140:8081/'
+
 
 node('gradle') {
 
@@ -20,7 +22,7 @@ node('gradle') {
         nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/my-app.jar", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
-        nexusUrl: '${nexusUrl}',
+        nexusUrl: "${nexusUrl}",
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
@@ -40,6 +42,6 @@ node('gradle') {
         }
 
         stage('push') {
-            dockerImage.push('3.1')
+            dockerImage.push("${tag}")
           }
 }
