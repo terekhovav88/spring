@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring</finalName>
+        <finalName>spring-3.1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
