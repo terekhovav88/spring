@@ -2,8 +2,6 @@
 
 def tag = '4.2'
 def nexusUrl = '192.168.1.140:8081/'
-def version = 'spring-4.2.jar'
-
 
 node('gradle') {
 
@@ -22,7 +20,7 @@ node('gradle') {
     }
 
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/${version}", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: "${nexusUrl}",
