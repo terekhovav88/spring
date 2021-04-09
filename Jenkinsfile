@@ -1,11 +1,14 @@
+@Library('jenkins-sample-lib')_
+
+
+
 node('gradle') {
-def imageTag = '3.1'
-def image = 'tomcat-spring'
-def version = '3.1-SNAPSHOT'
-def nexusUrl = '192.168.1.140:8081/'
-def file = 'my-app.jar'
 
-
+    stage('version') {
+        version(
+            "mvn"
+        )
+    }
     stage('maven build') {
         withMaven() {
            git "https://github.com/terekhovav88/spring.git"
