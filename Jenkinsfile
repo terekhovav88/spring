@@ -13,14 +13,14 @@ node('gradle') {
         }
     }
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: 'target/spring-1.1-SNAPSHOT.jar', type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: 'target/spring-2.1-SNAPSHOT.jar', type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: '192.168.1.140:8081/',
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
-        version: '1.1-SNAPSHOT'
+        version: '2.1-SNAPSHOT'
     }
     stage('checkout') {
             checkout([$class: 'GitSCM',
