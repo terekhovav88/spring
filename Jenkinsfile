@@ -28,7 +28,7 @@ node('gradle') {
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
-        version: "3.1"
+        version: "3.1-SNAPSHOT"
     }
 
     stage('checkout') {
