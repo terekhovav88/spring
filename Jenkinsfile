@@ -1,6 +1,6 @@
 @Library('jenkins-sample-lib')_
 
-
+def tag = '2.1'
 
 node('gradle') {
 
@@ -8,6 +8,7 @@ node('gradle') {
         version(
             "mvn"
         )
+        sh 'echo ${}'
     }
     stage('maven build') {
         withMaven() {
@@ -16,14 +17,14 @@ node('gradle') {
         }
     }
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/${file}", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/my-app.jar", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: '${nexusUrl}',
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
-        version: "${tag}-SNAPSHOT"
+        version: "3.1-SNAPSHOT"
     }
     stage('checkout') {
             checkout([$class: 'GitSCM',
@@ -34,11 +35,11 @@ node('gradle') {
 
         stage('build') {
         docker.withRegistry('https://registry.hub.docker.com', 'atinho') {
-            dockerImage = docker.build('atinho/${image}')
+            dockerImage = docker.build('atinho/tomcat-spring')
             }
         }
 
         stage('push') {
-            dockerImage.push('${imageTag}')
+            dockerImage.push('3.1')
           }
 }
