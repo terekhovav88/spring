@@ -1,7 +1,8 @@
 @Library('jenkins-sample-lib')_
 
-def tag = '3.1'
+def tag = '4.2'
 def nexusUrl = '192.168.1.140:8081/'
+def version = 'spring-4.2.jar'
 
 
 node('gradle') {
@@ -21,14 +22,14 @@ node('gradle') {
     }
 
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-4.1.jar", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/${version}", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: "${nexusUrl}",
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-releases',
-        version: "4.1"
+        version: "${tag}"
     }
 
     stage('checkout') {
