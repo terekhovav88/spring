@@ -12,12 +12,14 @@ node('gradle') {
         )
         sh "echo ${tag}"
     }
+
     stage('maven build') {
         withMaven() {
            git "https://github.com/terekhovav88/spring.git"
            sh "mvn clean package -Dmaven.test.skip=true" // 'mvnw' command (e.g. "./mvnw deploy")
         }
     }
+
     stage('nexus upload'){
         nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/my-app.jar", type: 'jar']],
         credentialsId: 'Nexus',
@@ -26,8 +28,9 @@ node('gradle') {
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
-        version: "3.1-SNAPSHOT"
+        version: "3.1"
     }
+
     stage('checkout') {
             checkout([$class: 'GitSCM',
             branches: [[name: '*/master']],
@@ -35,13 +38,13 @@ node('gradle') {
             userRemoteConfigs: [[credentialsId: 'f8413abe-394d-4162-98d5-842a7e37942d', url: 'https://github.com/terekhovav88/spring.git']]])
        }
 
-        stage('build') {
+    stage('build') {
         docker.withRegistry('https://registry.hub.docker.com', 'atinho') {
             dockerImage = docker.build('atinho/tomcat-spring')
             }
         }
 
-        stage('push') {
+    stage('push') {
             dockerImage.push("${tag}")
           }
 }

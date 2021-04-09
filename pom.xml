@@ -6,7 +6,7 @@
 
     <groupId>org.terekhov</groupId>
     <artifactId>spring</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1</version>
     <packaging>jar</packaging>
     <name>my-app</name>
 
