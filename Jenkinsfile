@@ -8,7 +8,7 @@ node('gradle') {
         version(
             "mvn"
         )
-        sh 'echo ${}'
+        sh "echo ${tag}"
     }
     stage('maven build') {
         withMaven() {
