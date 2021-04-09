@@ -3,7 +3,7 @@
 def tag = '2.1'
 def image = 'tomcat-spring'
 def nexusUrl = '192.168.1.140:8081/'
-def file = 'spring-2.1-SNAPSHOT.jar'
+def file = 'my-app.jar'
 
 node('gradle') {
     stage('version') {
@@ -18,7 +18,7 @@ node('gradle') {
         }
     }
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target//${file}", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/${file}", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: '${nexusUrl}',
