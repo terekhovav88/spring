@@ -20,7 +20,7 @@ node('gradle') {
     }
 
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-/${tag}", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: "${nexusUrl}",
