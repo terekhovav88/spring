@@ -21,14 +21,14 @@ node('gradle') {
     }
 
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-3.1.jar", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-4.1.jar", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: "${nexusUrl}",
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-releases',
-        version: "3.1"
+        version: "4.1"
     }
 
     stage('checkout') {
