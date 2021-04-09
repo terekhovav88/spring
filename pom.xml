@@ -38,6 +38,7 @@
     </dependencies>
 
     <build>
+        <finalName>my-app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>

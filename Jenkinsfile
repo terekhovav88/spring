@@ -1,5 +1,10 @@
 @Library('jenkins-sample-lib')_
 
+def tag = '2.1'
+def image = 'tomcat-spring'
+def nexusUrl = '192.168.1.140:8081/'
+def file = 'spring-2.1-SNAPSHOT.jar'
+
 node('gradle') {
     stage('version') {
         version(
@@ -13,14 +18,14 @@ node('gradle') {
         }
     }
     stage('nexus upload'){
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: 'target/spring-2.1-SNAPSHOT.jar', type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: 'target/${file}', type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
-        nexusUrl: '192.168.1.140:8081/',
+        nexusUrl: '${nexusUrl}',
         nexusVersion: 'nexus3',
         protocol: 'http',
         repository: 'maven-snapshots',
-        version: '2.1-SNAPSHOT'
+        version: '${tag}-SNAPSHOT'
     }
     stage('checkout') {
             checkout([$class: 'GitSCM',
@@ -31,7 +36,7 @@ node('gradle') {
 
         stage('build') {
         docker.withRegistry('https://registry.hub.docker.com', 'atinho') {
-            dockerImage = docker.build('atinho/tomcat-spring')
+            dockerImage = docker.build('atinho/${image}')
             }
         }
 
