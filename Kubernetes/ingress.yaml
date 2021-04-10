@@ -11,6 +11,6 @@ spec:
         paths:
           - backend:
               serviceName: spring-service
-              servicePort: 80
+              servicePort: 30163
             path: /spring
   tls: []
