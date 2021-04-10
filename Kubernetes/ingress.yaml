@@ -1,0 +1,16 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-spring
+  namespace: jenkins
+spec:
+  rules:
+    - host: spring.cluster.local
+      http:
+        paths:
+          - backend:
+              serviceName: spring-service
+              servicePort: 80
+            path: /spring
+  tls: []
