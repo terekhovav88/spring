@@ -69,7 +69,7 @@ node('gradle') {
                             ]]])
                dir('Kubernetes') {
                    kubeconfig(credentialsId: 'Kubernetes', serverUrl: 'https://192.168.1.91:6443') {
-                        sh 'kubectl apply -f tomcat.yaml && service.yaml'
+                        sh 'kubectl delete -f tomcat.yaml'
                }
          }
     }
