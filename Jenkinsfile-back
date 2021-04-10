@@ -9,6 +9,7 @@
     }
 
     stage('maven build') {
+    input 'Do you approve build?'
         withMaven() {
            git "https://github.com/terekhovav88/spring.git"
            sh "mvn clean package -Dmaven.test.skip=true" // 'mvnw' command (e.g. "./mvnw deploy")
@@ -16,6 +17,7 @@
     }
 
     stage('nexus upload'){
+    input 'Do you approve upload?'
         nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}.jar", type: 'jar']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
@@ -37,6 +39,7 @@
        }
 
     stage('build') {
+    input 'Do you approve docker build?'
         docker.withRegistry('https://registry.hub.docker.com', 'atinho') {
             dockerImage = docker.build('atinho/tomcat-spring')
             }
@@ -45,3 +48,11 @@
     stage('push') {
             dockerImage.push("${tag}")
           }
+
+        stage('K8S nodes'){
+           kubeconfig(credentialsId: 'Kubernetes', serverUrl: 'https://192.168.1.91:6443') {
+           sh 'kubectl get node'
+          }
+    }
+
+

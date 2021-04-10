@@ -1,13 +1,9 @@
 @Library('jenkins-sample-lib')_
 
 node('gradle') {
-        stage('K8S nodes'){
-           kubeconfig(credentialsId: 'Kubernetes', serverUrl: 'https://192.168.1.91:6443') {
-           sh 'kubectl get node'
-          }
-    }
 
     stage('Kubernetets deploy'){
+    input 'Do you approve deployment?'
                checkout([$class: 'GitSCM',
                            branches: [[name: '*/master']],
                            extensions: [],
@@ -17,7 +13,7 @@ node('gradle') {
                             ]]])
                dir('Kubernetes') {
                    kubeconfig(credentialsId: 'Kubernetes', serverUrl: 'https://192.168.1.91:6443') {
-                        sh 'kubectl apply -f tomcat.yaml && kubectl apply -f service.yaml && kubectl apply -f ingress.yaml'
+                        sh 'kubectl delete -f tomcat.yaml && kubectl delete -f service.yaml'
                }
          }
     }
