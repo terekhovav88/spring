@@ -6,7 +6,7 @@
 
     <groupId>org.terekhov</groupId>
     <artifactId>spring</artifactId>
-    <version>4.2</version>
+    <version>4.3</version>
     <packaging>jar</packaging>
     <name>my-app</name>
 
@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-4.2</finalName>
+        <finalName>spring-4.3</finalName>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
