@@ -22,7 +22,7 @@ node('gradle') {
 
     stage('nexus upload') {
     input 'Do you approve upload?'
-        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}.jar", type: 'jar']],
+        nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}.war", type: 'war']],
         credentialsId: 'Nexus',
         groupId: 'org.terekhov',
         nexusUrl: "${nexusUrl}",
