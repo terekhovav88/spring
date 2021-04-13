@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: tomcat-spring
-          image: atinho/tomcat-spring:4.3
+          image: atinho/tomcat-spring:5.0
           ports:
             - containerPort: 8080

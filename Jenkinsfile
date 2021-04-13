@@ -1,7 +1,8 @@
+#!groovy
 @Library('jenkins-sample-lib')_
 
 node('gradle') {
-    def tag = '4.3'
+    def tag = '5.0'
     def nexusUrl = '192.168.1.140:8081/'
 
     stage('version') {
@@ -19,7 +20,7 @@ node('gradle') {
         }
     }
 
-    stage('nexus upload'){
+    stage('nexus upload') {
     input 'Do you approve upload?'
         nexusArtifactUploader artifacts: [[artifactId: 'spring', classifier: '', file: "target/spring-${tag}.jar", type: 'jar']],
         credentialsId: 'Nexus',
@@ -42,7 +43,9 @@ node('gradle') {
             dockerImage.push("${tag}")
           }
 
-        stage('K8S nodes'){
+
+    stage('K8S nodes') {
+        input 'Do you want get nodes?'
            kubeconfig(credentialsId: 'Kubernetes', serverUrl: 'https://192.168.1.91:6443') {
            sh 'kubectl get node'
           }
