@@ -2,7 +2,7 @@
 @Library('jenkins-sample-lib')_
 
 node('gradle') {
-    def tag = '6.0'
+    def tag = '1.0'
     def nexusUrl = '192.168.1.140:8081/'
 
     stage('version') {
